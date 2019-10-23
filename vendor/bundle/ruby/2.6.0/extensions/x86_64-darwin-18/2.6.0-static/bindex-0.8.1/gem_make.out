@@ -1,0 +1,15 @@
+current directory: /Users/yuiya/Documents/Yuzuru_folder/Yuzuru-OSU/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/yuiya/.rbenv/versions/2.6.3/bin/ruby -I /Users/yuiya/.rbenv/versions/2.6.3/lib/ruby/2.6.0 -r ./siteconf20191016-73513-1h8wwpq.rb extconf.rb
+creating Makefile
+
+current directory: /Users/yuiya/Documents/Yuzuru_folder/Yuzuru-OSU/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /Users/yuiya/Documents/Yuzuru_folder/Yuzuru-OSU/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/yuiya/Documents/Yuzuru_folder/Yuzuru-OSU/vendor/bundle/ruby/2.6.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20191016-73513-1nsm88a/skiptrace/internal

@@ -1,0 +1,140 @@
+<%= render 'layouts/header' %>
+<br><br><br><br><br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <h4>画像表示？</h4>
+    </div>
+    <div class="col-md-2">
+      <p>タイトル</p>
+      <p>講義名</p>
+      <p>ステータス</p>
+      <p>詳細</p>
+      <p>提供者</p>
+    </div>
+    <div class="col-md-4">
+        <p><%= @post.title %></p>
+        <p><%= @post.lecture %></p>
+        <p><%= @post.status %></p>
+        <p><%= @post.content %></p>
+        <p><%= link_to @post.provider.username, user_path(@post.provider.id) %></p>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+    <% if @post.provider == current_user %>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <br>
+                <p class="text-center"><%= link_to '編集', edit_post_path(@post.id) %>
+                <%= link_to '削除', post_path(@post.id), method: :delete %>
+                </p>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    <% end %>
+
+    <br>
+
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <% if @post.recipient.nil? %>
+            <!-- @post.recipient is NULL -->
+            <% if user_signed_in? %>
+                <!-- @user signed in -->
+                <% if @post.provider == current_user %>
+                    <!-- @user is PROVIDER -->
+                <% else %>
+                    <!-- @user isn't PROVIDER -->
+                    <%= form_for @post, url: status_update_post_path(@post.id), method: :post do |f| %>
+                        <%= f.hidden_field :status, value: "受け渡し中" %>
+                        <%= f.submit 'オファーを送る', class: "btn btn-block btn-outline-primary" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <!-- user don't signed in -->
+                <%= form_for @post, url: status_update_post_path(@post.id), method: :post do |f| %>
+                    <%= f.hidden_field :status, value: "受け渡し中" %>
+                    <%= f.submit 'オファーを送る', class: "btn btn-block btn-outline-primary" %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <!-- @post.recipient is not NULL -->
+            <button class="btn btn-block btn-warning" disabled="disabled">募集終了</button>
+        <% end %>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+
+    <hr>
+    <br>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+        <h4>コメント</h4>
+    </div>
+    <div class="col-md-4">
+        <% if @comments.length == 0 %>
+            <p>コメントはありません</p>
+        <% else %>
+             <% @comments.each do |c| %>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <%= link_to c.user.username, user_path(c.user.id) %>
+                    </div>
+                    <div class="col-sm-9">
+                        <%= c.content %>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+
+    <br><br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <h4>コメントする</h4>
+            </div>
+            <% if user_signed_in? %>
+                <div class="col-md-4">
+                    <%= form_for [@post, @comment] do |f| %>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <%= f.text_field :content, class: "form-control" %>
+                                </div>
+                            </div>
+                        <%= f.hidden_field :post_id, value: @post.id %>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-center">
+                                <%= f.submit '投稿', class: "btn btn-outline-dark" %>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            <% else %>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <%= link_to 'ログインしてコメントする', login_path, class: "btn btn-outline-dark" %>
+                    </div>
+                </div>
+            <% end %>
+            <div class="col-md-4"></div>
+        </div>
+</div>
+
+ <hr>
+
+<div class="text-center">
+    <br>
+    <%= link_to "ホーム", posts_path %>
+</div>
+
+<%= render 'layouts/footer' %>

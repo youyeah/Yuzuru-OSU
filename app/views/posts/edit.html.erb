@@ -1,0 +1,21 @@
+<h1>投稿編集</h1>
+<%= form_for @post do |f| %>
+    <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    </p>
+    <p>
+    <%= f.label :lecture %>
+    <%= f.text_area :lecture %>
+    </p>
+    <p>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+    </p>
+    <%= f.submit "保存" %>
+<% end %>
+<% if @post.provider == current_user %>
+    <p><%= link_to '削除', post_path(@post.id), method: :delete %></p>
+<% end %>
+
+<%= link_to "ホームへ戻る", posts_path %>
