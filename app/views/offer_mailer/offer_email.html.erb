@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @provider.username %>様、あなたの教材提供にオファーが来ました。</h1>
+    <p>
+        あなたが募集していた<%= @post.title %>にオファーが来ました。
+        次のリンクからYuzuru-OSUへアクセスして確認してください。
+        <a href="<%= "#{@url}#{@post.id}" %>">「<%= @post.title %>」へアクセス</a>
+    </p>
+
+    <h3><%= @recipient.username %>さんとの連絡を開始し、教材を譲ってください。</h3>
+    <p>
+        <%= @recipient.username %>さんのメールアドレスは、<br>
+        <%= @recipient.email %><br>
+        です。
+    </p>
+    <p>
+        いつ、どこで受け渡し可能であるかを確認し、受け渡しを行ってください。<br>
+        教材のご提供に感謝いたします。
+    </p>
+    <p>
+        send from, Yuzuru-OSU
+    </p>
+  </body>
+</html>

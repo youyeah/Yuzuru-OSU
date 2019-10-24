@@ -16,6 +16,7 @@ class PostsController < ApplicationController
     @post  = Post.find(params[:id])
     @post.recipient = current_user
     if @post.update(post_status_update)
+      OfferMailer.offer_email(@post.provider, @post.recipient, @post).deliver
       redirect_back(fallback_location: root_path)
     else
       redirect_back(fallback_location: root_path)
