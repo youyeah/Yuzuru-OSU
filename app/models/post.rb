@@ -8,8 +8,11 @@ class Post < ApplicationRecord
 
   # validates
   validates :provider, presence: true
-  validates :title,    presence: true
-  validates :content,  presence: true
+  validates :title,    presence: true, length: { minimum: 1 , maximum: 30}
+  validates :lecture,  presence: true, length: { minimum: 1 , maximum: 20}
+  validates :status,   presence: true
+  validates :content,  presence: true, length: { minimum: 1 , maximum: 100}
+  
 
   # comments
   has_many :comments

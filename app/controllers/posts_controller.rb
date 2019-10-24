@@ -26,10 +26,12 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.provider = current_user
-    if @post.save!
+    if @post.save
       redirect_back(fallback_location: root_path)
     else
-      redirect_back(fallback_location: root_path)
+      @posts = Post.all
+      flash.now[:alert] = '保存に失敗しました。入力が正しくありません。'
+      render :index, posts: @posts
     end
   end
 
