@@ -4,22 +4,38 @@
 <div class="container">
   <div class="row">
     <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <h4>画像表示？</h4>
-    </div>
-    <div class="col-md-2">
-      <p>タイトル</p>
-      <p>講義名</p>
-      <p>ステータス</p>
-      <p>詳細</p>
-      <p>提供者</p>
+    <div class="col-md-4">
+        <% if @post.image? %>
+            <%= image_tag @post.image.thumb.url %>
+        <% else %>
+            <%= image_tag 'noimage.png' %>
+        <% end %>
     </div>
     <div class="col-md-4">
-        <p><%= @post.title %></p>
-        <p><%= @post.lecture %></p>
-        <p><%= @post.status %></p>
-        <p><%= @post.content %></p>
-        <p><%= link_to @post.provider.username, user_path(@post.provider.id) %></p>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>タイトル</td>
+                    <td><%= @post.title %></td>
+                </tr>
+                <tr>
+                    <td>講義名</td>
+                    <td><%= @post.lecture %></td>
+                </tr>
+                <tr>
+                    <td>ステータス</td>
+                    <td><%= @post.status %></td>
+                </tr>
+                <tr>
+                    <td>説明</td>
+                    <td><%= @post.content %></td>
+                </tr>
+                <tr>
+                    <td>提供者</td>
+                    <td><%= link_to @post.provider.username, user_path(@post.provider.id) %></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="col-md-2"></div>
   </div>

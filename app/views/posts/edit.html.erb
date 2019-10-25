@@ -12,6 +12,14 @@
     <%= f.label :content %>
     <%= f.text_area :content %>
     </p>
+    <p>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+    </p>
+    <p>
+    <%= f.check_box :remove_image %>
+    <%= f.label :remove_image, "画像を削除する" %>
+    </p>
     <%= f.submit "保存" %>
 <% end %>
 <% if @post.provider == current_user %>
