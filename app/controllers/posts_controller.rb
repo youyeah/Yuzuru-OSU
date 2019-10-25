@@ -27,7 +27,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.provider = current_user
     if @post.save
-      redirect_back(fallback_location: root_path)
+      flash.now[:notice] = '保存しました。'
+      # redirect_back(fallback_location: root_path)
+      redirect_to(post_path(@post.id))
     else
       @posts = Post.all
       flash.now[:alert] = '保存に失敗しました。入力が正しくありません。'
@@ -41,9 +43,12 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+
+    # 本人じゃなかったらルートパスにふぁっきん送り返す
     if not(authenticate_identity(@post))
       redirect_back(fallback_location: root_path) and return
     end
+
     if @post.update(post_params)
       redirect_to(post_path(@post.id))
     else
@@ -67,7 +72,7 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :lecture, :content)
+      params.require(:post).permit(:title, :lecture, :content, :image, :image_cache, :remove_image)
     end
 
     def post_status_update

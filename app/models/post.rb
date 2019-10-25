@@ -12,6 +12,9 @@ class Post < ApplicationRecord
   validates :lecture,  presence: true, length: { minimum: 1 , maximum: 20}
   validates :status,   presence: true
   validates :content,  presence: true, length: { minimum: 1 , maximum: 100}
+
+  #image
+  mount_uploader :image, ImageUploader
   
 
   # comments

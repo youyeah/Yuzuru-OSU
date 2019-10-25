@@ -38,6 +38,9 @@ gem 'jquery-rails'
 # font awesome
 gem 'font-awesome-sass'
 
+# Image upload and preview
+gem 'carrierwave'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -53,6 +56,8 @@ group :development do
 
   # メールを送った時にブラウザで新しいタブを開いて表示するgem
   gem "letter_opener"
+  gem 'rmagick'
+  
 end
 
 group :test do
