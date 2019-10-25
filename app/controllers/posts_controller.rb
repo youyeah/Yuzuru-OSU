@@ -28,7 +28,8 @@ class PostsController < ApplicationController
     @post.provider = current_user
     if @post.save
       flash.now[:notice] = '保存しました。'
-      redirect_back(fallback_location: root_path)
+      # redirect_back(fallback_location: root_path)
+      redirect_to(post_path(@post.id))
     else
       @posts = Post.all
       flash.now[:alert] = '保存に失敗しました。入力が正しくありません。'

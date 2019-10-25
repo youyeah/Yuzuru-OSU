@@ -6,7 +6,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-4">
         <% if @post.image? %>
-            <%= image_tag @post.image.thumb.url %>
+            <%= image_tag @post.image.thumb300.url %>
         <% else %>
             <%= image_tag 'noimage.png' %>
         <% end %>
