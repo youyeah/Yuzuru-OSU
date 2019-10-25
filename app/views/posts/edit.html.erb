@@ -10,12 +10,24 @@
     </p>
     <p>
     <%= f.label :condition %>
-    <%= f.select [["新品", "新品"], ["ほぼ新品", "ほぼ新品"],  ["きれい", "きれい"],
+    <%= f.select :condition, [["新品", "新品"], ["ほぼ新品", "ほぼ新品"],  ["きれい", "きれい"],
                                 ["きたない", "きたない"],["出品不可", "出品不可"] ],  :prompt => "選択してください", class: "form-control" %>
     </p>
     <p>
     <%= f.label :content %>
     <%= f.text_area :content %>
+    </p>
+    <% if @post.image? %>
+        <p>現在のイメージ</p>
+        <%= image_tag @post.image.thumb100.url %>
+    <% end %>
+    <p>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+    </p>
+    <p>
+    <%= f.check_box :remove_image %>
+    <%= f.label :remove_image, "画像を削除する" %>
     </p>
     <%= f.submit "保存" %>
 <% end %>
