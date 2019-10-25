@@ -20,4 +20,7 @@ class Post < ApplicationRecord
   enum status: {
     掲載中: 0, 受け渡し中: 1, 受け渡し完了: 2
   }
+  enum condition:{
+    新品: 1, ほぼ新品: 2, きれい: 3, きたない: 4, 出品不可: 5
+  }
 end

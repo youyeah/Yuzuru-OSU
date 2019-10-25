@@ -9,6 +9,11 @@
     <%= f.text_field :lecture %>
     </p>
     <p>
+    <%= f.label :condition %>
+    <%= f.select [["新品", "新品"], ["ほぼ新品", "ほぼ新品"],  ["きれい", "きれい"],
+                                ["きたない", "きたない"],["出品不可", "出品不可"] ],  :prompt => "選択してください", class: "form-control" %>
+    </p>
+    <p>
     <%= f.label :content %>
     <%= f.text_area :content %>
     </p>

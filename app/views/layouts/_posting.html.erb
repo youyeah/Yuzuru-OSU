@@ -22,6 +22,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <%= f.label :コンディション , class: "col-sm-2 col-form-label" %>
+                            <div class="col-sm-10">
+                                <%= f.select [["新品", "新品"], ["ほぼ新品", "ほぼ新品"],  ["きれい", "きれい"],
+                                ["きたない", "きたない"],["出品不可", "出品不可"] ],  :prompt => "選択してください", class: "form-control" %>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <%= f.label :説明 , class: "col-sm-2 col-form-label" %>
                             <div class="col-sm-10">
                                 <%= f.text_area :content, class: "form-control" %>

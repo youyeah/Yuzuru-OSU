@@ -67,7 +67,7 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :lecture, :content)
+      params.require(:post).permit(:title, :lecture, :content, :condition)
     end
 
     def post_status_update
