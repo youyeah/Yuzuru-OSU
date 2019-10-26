@@ -2,14 +2,18 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :status_update, :destroy]
 
   def index
+    @post  = Post.new
     @posts = Post.all
-    @post  = Post.new 
   end
 
   def show
     @post  = Post.find(params[:id])
     @comments = @post.comments
     @comment = Comment.new
+  end
+
+  def search
+    @posts = Post.search(params[:title],params[:lecture],params[:status])
   end
 
   def status_update
@@ -84,10 +88,4 @@ class PostsController < ApplicationController
       post.provider == current_user ? true : false
     end
 
-    # 呼び出された関数のなかでredirectできなかったので、不採用
-    # def authenticate_identity(a_post)
-    #   if a_post.provider != current_user
-    #     redirect_back(fallback_location: root_path) #and return
-    #   end
-    # end
 end

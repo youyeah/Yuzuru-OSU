@@ -16,18 +16,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-10">
+    <div class="col-md-3">
+      <h4>教材を探す</h4>
+      <%= render 'layouts/search' %>
+    </div>
+    <div class="col-md-7">
       <div class="container row">
         <% @posts.each do |post| %>
-          <div class="col-4">
-            <div class="">
-              <h6><%= link_to post.title, post_path(post.id), class: "font-weight-bold" %></h6>
-              <p>講義名: <%= post.lecture %></p>
-              <p>説 明: <%= post.content %></a></p>
-              <p>投稿者: <%= link_to post.provider.username, user_path(post.provider.id) %></p>
+          <% if post.status == "掲載中" %>
+            <div class="col-4">
+              <div class="">
+                <h6><%= link_to post.title, post_path(post.id), class: "font-weight-bold" %></h6>
+                <p>講義名: <%= post.lecture %></p>
+                <p>説 明: <%= post.content %></a></p>
+                <p>投稿者: <%= link_to post.provider.username, user_path(post.provider.id) %></p>
+              </div>
+              <br>     
             </div>
-            <br>     
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>

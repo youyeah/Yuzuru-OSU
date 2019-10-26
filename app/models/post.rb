@@ -1,5 +1,17 @@
 class Post < ApplicationRecord
 
+  def self.search(title, lecture, status)
+    if title
+      @posts = where('(title LIKE ? )', "%#{title}%")
+      @posts.where('(lecture LIKE ? )', "%#{lecture}%") if lecture
+    elsif lecture
+      @posts.where('(lecture LIKE ? )', "%#{lecture}%")
+    else
+      @posts = self.all
+    end
+    # @posts.where(status: status)
+  end
+
   # user
   belongs_to :provider,  class_name: 'User'                #, foreign_key: 'provider'
   belongs_to :recipient, class_name: 'User', optional: true#, foreign_key: 'recipient'
