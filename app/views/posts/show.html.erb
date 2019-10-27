@@ -15,11 +15,14 @@
     </div>
     <div class="col-md-4">
         <table class="table">
-            <tbody>
+            <thead>
                 <tr>
-                    <td>タイトル</td>
-                    <td><%= @post.title %></td>
+                  <th colspan=2>
+                    <%= @post.title %>
+                  </th>
                 </tr>
+              </thead>
+            <tbody>
                 <tr>
                     <td>講義名</td>
                     <td><%= @post.lecture %></td>

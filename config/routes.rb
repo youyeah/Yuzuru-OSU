@@ -13,10 +13,17 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   resources :posts, only: [:index, :show, :create, :edit, :update, :destroy] do
 
+    # postのそれぞれに対して、commentsをつける
     resources :comments, only: [:create]
     
+    # memberは特定のデータに対して
     member do
       post 'status_update'
+    end
+
+    # collectionは全てのデータに対して
+    collection do
+      get 'search'
     end
     
   end

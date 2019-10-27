@@ -45,13 +45,77 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <h4 class="font-weight-light">Posts</h4>
+      <h4 class="font-weight-light">Users Posts</h4>
     </div>
     <div class="col-md-6">
-      <% @posts.each do |post| %>
-        <%= link_to post.title, post_path(post.id) %>
-        <hr>
+    <!--
+      <% if @posts_bosyu %>
+        <% @posts_bosyu.each do |post| %>
+          <%= link_to post.title, post_path(post.id) %>
+          <hr>
+        <% end %>
+      <% else %>
+        <h4>募集中の投稿がありません。</p>
       <% end %>
+      -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Bosyu now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @posts_bosyu.length > 0 %>
+            <% @posts_bosyu.each do |post| %>
+              <tr>
+                <td><%= link_to post.title, post_path(post.id) %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td>募集中の投稿がありません</td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <thead>
+          <tr>
+            <th>Deliver Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @posts_delivery.length > 0 %>
+            <% @posts_delivery.each do |post| %>
+              <tr>
+                <td><%= link_to post.title, post_path(post.id) %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td>受け渡し中の投稿がありません</td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <thead>
+          <tr>
+            <th>Yuzutta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @posts_done.length > 0 %>
+            <% @posts_done.each do |post| %>
+              <tr>
+                <td><%= link_to post.title, post_path(post.id) %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td>譲った教材がありません</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div class="col-md-2"></div>
   </div>

@@ -36,7 +36,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 
 # font awesome
-gem 'font-awesome-sass'
+# gem 'font-awesome-sass'
 
 # Image upload and preview
 gem 'carrierwave'

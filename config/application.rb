@@ -8,8 +8,6 @@ Bundler.require(*Rails.groups)
 
 module YuzuruOsu
   class Application < Rails::Application
-    # 画像をアップロードするためにuploadersを使えるようにしなければいけない？
-    # config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
     
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
