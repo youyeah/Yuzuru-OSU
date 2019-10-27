@@ -1,11 +1,29 @@
 class Post < ApplicationRecord
 
+  # Postを特定するための検索。Adminで使う予定
   def self.search(title, lecture, status)
     if title
       @posts = where('(title LIKE ? )', "%#{title}%")
       @posts.where('(lecture LIKE ? )', "%#{lecture}%") if lecture
     elsif lecture
       @posts.where('(lecture LIKE ? )', "%#{lecture}%")
+    else
+      @posts = self.all
+    end
+    # @posts.where(status: status)
+  end
+
+  # Postを特定するためではなく、なるべく多く拾ってくる検索
+  def self.search_slack(key_words)
+    if key_words
+      # 1byteのスペースと2byteのスペースで文字を分割
+      @posts = where(status: "存在しない") #とりあえず@postsを作成する
+      key_words.split(/[ |　]/).each_with_index do |char, i|
+        continue if char == (" " or "　") # 検索のキーワードの最初と最後に空白が入ることがあったので、それをスルー
+        @posts += where('(title LIKE ? )', "%#{char}%").where(status: "募集中") 
+        @posts += where('(lecture LIKE ? )', "%#{char}%").where(status: "募集中") 
+      end
+      return @posts
     else
       @posts = self.all
     end

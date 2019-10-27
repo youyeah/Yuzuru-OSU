@@ -13,7 +13,10 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = Post.search(params[:title],params[:lecture],params[:status])
+    # @posts = Post.search(params[:title],params[:lecture],params[:status])
+
+    #ゆるい方の検索
+    @posts = Post.search_slack(params[:key_words])
   end
 
   def status_update
