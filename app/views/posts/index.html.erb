@@ -6,7 +6,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <br>
-      <h2 class="text-center font-weight-light">All Posts</h2>
+      <h2 class="text-center font-weight-light">Latest Texts</h2>
       <br>
     </div>
     <div class="col-md-4"></div>
@@ -22,18 +22,38 @@
     </div>
     <div class="col-md-7">
       <div class="container row">
-        <% @posts.each do |post| %>
-          <% if post.status == "掲載中" %>
-            <div class="col-4">
-              <div class="">
-                <h6><%= link_to post.title, post_path(post.id), class: "font-weight-bold" %></h6>
-                <p>講義名: <%= post.lecture %></p>
-                <p>説 明: <%= post.content %></a></p>
-                <p>投稿者: <%= link_to post.provider.username, user_path(post.provider.id) %></p>
+        <% @posts.reverse_each do |post| %>
+          <div class="col-3">
+            <% if post.image? %>
+              <%= image_tag post.image.thumb100.url %>
+            <% else %>
+              <div class="text-center">
+                <%= image_tag 'noimage_100.png' %>
               </div>
-              <br>     
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+          <div class="col-9">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th colspan=2>
+                    <%= link_to post.title, post_path(post.id), class: "font-weight-bold" %>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td>講義名</td>
+                    <td><%= post.lecture %></td>
+                </tr>
+                <tr>
+                    <td>ステータス</td>
+                    <td><%= post.status %></td>
+                </tr>
+              </tbody>
+          </table>
+            <br>     
+          </div>
         <% end %>
       </div>
     </div>
