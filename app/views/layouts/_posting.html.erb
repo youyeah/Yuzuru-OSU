@@ -12,25 +12,25 @@
                         <div class="form-group row">
                             <%= f.label :タイトル , class: "col-sm-2 col-form-label" %>
                             <div class="col-sm-10">
-                                <%= f.text_field :title, autofocus: true,class: "form-control" %>
+                                <%= f.text_field :title, placeholder: "書名を入力",autofocus: true,class: "form-control" %>
                             </div>
                         </div>
                         <div class="form-group row">
                             <%= f.label :講義名 , class: "col-sm-2 col-form-label" %>
                             <div class="col-sm-10">
-                                <%= f.text_field :lecture, class: "form-control" %>
+                                <%= f.text_field :lecture, placeholder: "講義名を入力", class: "form-control" %>
                             </div>
                         </div>
                         <div class="form-group row">
                             <%= f.label :コンディション , class: "col-sm-2 col-form-label" %>
                             <div class="col-sm-10">
-                                <%= f.select :condition,  [["新品", "新品"], ["ほぼ新品", "ほぼ新品"],  ["きれい", "きれい"], ["きたない", "きたない"],["出品不可", "出品不可"] ],  prompt: "選択してください"  %>
+                                <%= f.select :condition,  [["新品同様", "新品同様"],  ["書き込みがある", "書き込みがある"], ["汚れが目立つ", "汚れが目立つ"],["きたない", "きたない"] ],  { include_blank: "- 状態を選択 -", selected: "- 状態を選択 -" } %>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <%= f.label :説明 , class: "col-sm-2 col-form-label" %>
+                            <%= f.label :説明, class: "col-sm-2 col-form-label" %>
                             <div class="col-sm-10">
-                                <%= f.text_area :content, class: "form-control" %>
+                                <%= f.text_area :content, placeholder: "多少の書き込みはあるけど、全然使えます！など、少しでも入力してください。", class: "form-control" %>
                             </div>
                         </div>
                         <div class="form-group row">

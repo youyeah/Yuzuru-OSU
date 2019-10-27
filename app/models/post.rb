@@ -42,6 +42,7 @@ class Post < ApplicationRecord
   validates :lecture,  presence: true, length: { minimum: 1 , maximum: 20}
   validates :status,   presence: true
   validates :content,  presence: true, length: { minimum: 1 , maximum: 100}
+  validates :condition,presence: true
 
   #image
   mount_uploader :image, ImageUploader
@@ -54,6 +55,7 @@ class Post < ApplicationRecord
     募集中: 0, 受け渡し中: 1, 受け渡し完了: 2
   }
   enum condition:{
-    新品: 1, ほぼ新品: 2, きれい: 3, きたない: 4, 出品不可: 5
+    新品同様: 1, 書き込みがある: 2, 汚れが目立つ: 3, きたない: 4
   }
+
 end
