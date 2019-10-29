@@ -22,11 +22,11 @@ class PostsController < ApplicationController
   def status_update
     @post  = Post.find(params[:id])
     @post.recipient = current_user
-    if @post.update(post_status_update)
+    if @post.update(post_status)
       OfferMailer.offer_email(@post.provider, @post.recipient, @post).deliver
-      redirect_back(fallback_location: root_path)
+      redirect_to(post_path(@post.id))
     else
-      redirect_back(fallback_location: root_path)
+      redirect_to(post_path(@post.id))
     end
   end
 
@@ -82,7 +82,7 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :lecture, :content, :condition, :image, :image_cache, :remove_image)
     end
 
-    def post_status_update
+    def post_status
       params.require(:post).permit(:status)
     end
 

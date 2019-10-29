@@ -18,7 +18,7 @@
       <%= form_tag search_posts_path, method: :get do %>
         <div class="form-group row">
           <div class="col-sm-9">
-            <%= text_field_tag :key_words, params[:key_words], placeholder: "書名 や 講義名", class: "form-control" %>
+            <%= text_field_tag :key_words, params[:key_words], placeholder: "書名や講義名を入力", class: "form-control" %>
           </div>
           <div class="col-sm-3">
             <%= submit_tag '検索' , class: "btn btn-block btn-outline-dark" %>

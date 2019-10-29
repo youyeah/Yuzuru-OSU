@@ -1,7 +1,34 @@
 class Post < ApplicationRecord
 
-  # Postを特定するための検索。Adminで使う予定
-  def self.search(title, lecture, status)
+  # user
+  belongs_to :provider,  class_name: 'User'                #, foreign_key: 'provider'
+  belongs_to :recipient, class_name: 'User', optional: true#, foreign_key: 'recipient'
+  # belongs_to :provider_id,  class_name: 'User'                #, foreign_key: 'provider'
+  # belongs_to :recipient_id, class_name: 'User', optional: true#, foreign_key: 'recipient'
+
+  # validates
+  validates :provider, presence: true
+  validates :title,    presence: true, length: { minimum: 1 , maximum: 30}
+  validates :lecture,  presence: true, length: { minimum: 1 , maximum: 20}
+  validates :status,   presence: true
+  validates :content,  presence: true, length: { minimum: 1 , maximum: 100}
+  validates :condition,presence: true
+
+  #image
+  mount_uploader :image, ImageUploader
+
+  # comments
+  has_many :comments
+
+  enum status: {
+    募集中: 0, 募集終了: 1
+  }
+  enum condition:{
+    新品同様: 1, 書き込みがある: 2, 汚れが目立つ: 3, きたない: 4
+  }
+
+   # Postを特定するための検索。Adminで使う予定
+   def self.search(title, lecture, status)
     if title
       @posts = where('(title LIKE ? )', "%#{title}%")
       @posts.where('(lecture LIKE ? )', "%#{lecture}%") if lecture
@@ -29,33 +56,5 @@ class Post < ApplicationRecord
     end
     # @posts.where(status: status)
   end
-
-  # user
-  belongs_to :provider,  class_name: 'User'                #, foreign_key: 'provider'
-  belongs_to :recipient, class_name: 'User', optional: true#, foreign_key: 'recipient'
-  # belongs_to :provider_id,  class_name: 'User'                #, foreign_key: 'provider'
-  # belongs_to :recipient_id, class_name: 'User', optional: true#, foreign_key: 'recipient'
-
-  # validates
-  validates :provider, presence: true
-  validates :title,    presence: true, length: { minimum: 1 , maximum: 30}
-  validates :lecture,  presence: true, length: { minimum: 1 , maximum: 20}
-  validates :status,   presence: true
-  validates :content,  presence: true, length: { minimum: 1 , maximum: 100}
-  validates :condition,presence: true
-
-  #image
-  mount_uploader :image, ImageUploader
-  
-
-  # comments
-  has_many :comments
-
-  enum status: {
-    募集中: 0, 受け渡し中: 1, 受け渡し完了: 2
-  }
-  enum condition:{
-    新品同様: 1, 書き込みがある: 2, 汚れが目立つ: 3, きたない: 4
-  }
 
 end

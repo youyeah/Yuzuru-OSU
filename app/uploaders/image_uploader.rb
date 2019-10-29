@@ -13,6 +13,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  # 5MGは大きい？
+  def size_range
+    1.megabytes
+  end
+
   # リサイズしたり画像形式を変更するのに必要
   include CarrierWave::RMagick
 
@@ -33,7 +38,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # jpg,jpeg,gif,pngしか受け付けない
   def extension_white_list
-    %w(jpg jpeg gif png)
+    %w(jpg jpeg png)
   end
  
  # ファイル名を日付にするとタイミングのせいでサムネイル名がずれる
