@@ -1,0 +1,114 @@
+= render 'layouts/header'
+%br/
+%br/
+%br/
+%br/
+%br/
+.container
+  .row
+    .col-md-2
+    .col-md-4
+      - if @post.image?
+        = image_tag @post.image.thumb300.url
+      - else
+        .text-center
+          = image_tag 'noimage.png'
+    .col-md-4
+      %table.table
+        %thead
+          %tr
+            %th{:colspan => "2"}
+              = @post.title
+        %tbody
+          %tr
+            %td 講義名
+            %td= @post.lecture
+          %tr
+            %td ステータス
+            %td= @post.status
+          %tr
+            %td 説明
+            %td= @post.content
+          %tr
+            %td コンディション
+            %td= @post.condition
+          %tr
+            %td 提供者
+            %td= link_to @post.provider.username, user_path(@post.provider.id)
+    .col-md-2
+  - if @post.provider == current_user
+    .row
+      .col-md-4
+      .col-md-4
+        %br/
+        %p.text-center
+          = link_to '編集', edit_post_path(@post.id)
+          = link_to '削除', post_path(@post.id), method: :delete
+      .col-md-4
+  %br/
+  .row
+    .col-md-4
+    .col-md-4
+      - if @post.recipient.nil?
+        / @post.recipient is NULL
+        - if user_signed_in?
+          / @user signed in
+          - if @post.provider == current_user
+            / @user is PROVIDER
+          - else
+            / @user isn't PROVIDER
+            = form_for @post, url: status_update_post_path(@post.id), method: :post do |f|
+              = f.hidden_field :status, value: "受け渡し中"
+              = f.submit 'オファーを送る', class: "btn btn-block btn-outline-primary"
+        - else
+          / user don't signed in
+          = form_for @post, url: status_update_post_path(@post.id), method: :post do |f|
+            = f.hidden_field :status, value: "受け渡し中"
+            = f.submit 'オファーを送る', class: "btn btn-block btn-outline-primary"
+      - else
+        / @post.recipient is not NULL
+        %button.btn.btn-block.btn-warning{:disabled => "disabled"} 募集終了
+    .col-md-4
+  %hr/
+  %br/
+  .row
+    .col-md-2
+    .col-md-2
+      %h4 コメント
+    .col-md-4
+      - if @comments.length == 0
+        %p コメントはありません
+      - else
+        - @comments.each do |c|
+          .form-group.row
+            .col-sm-3
+              = link_to c.user.username, user_path(c.user.id)
+            .col-sm-9
+              = c.content
+    .col-md-4
+  %br/
+  %br/
+  .row
+    .col-md-2
+    .col-md-2
+      %h4 コメントする
+    - if user_signed_in?
+      .col-md-4
+        = form_for [@post, @comment] do |f|
+          .form-group.row
+            .col-sm-12
+              = f.text_field :content, class: "form-control"
+          = f.hidden_field :post_id, value: @post.id
+          .form-group.row
+            .col-sm-12.text-center
+              = f.submit '投稿', class: "btn btn-outline-dark"
+    - else
+      .col-md-4
+        .text-center
+          = link_to 'ログインしてコメントする', login_path, class: "btn btn-outline-dark"
+    .col-md-4
+%hr/
+.text-center
+  %br/
+  = link_to "ホーム", posts_path
+= render 'layouts/footer'

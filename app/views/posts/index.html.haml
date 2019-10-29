@@ -1,0 +1,49 @@
+= render 'layouts/header'
+= render 'layouts/posting'
+.container
+  .row
+    .col-md-4
+    .col-md-4
+      %br/
+      %h2.text-center.font-weight-light Latest Texts
+      %br/
+    .col-md-4
+  .row
+    .col-md-4
+    .col-md-4
+      = form_tag search_posts_path, method: :get do
+        .form-group.row
+          .col-sm-9
+            = text_field_tag :key_words, params[:key_words], placeholder: "書名や講義名を入力", class: "form-control"
+          .col-sm-3
+            = submit_tag '検索' , class: "btn btn-block btn-outline-dark"
+      %br/
+    .col-md-4
+.container
+  .row
+    .col-md-1
+    .col-md-10
+      .container.row
+        - @posts.reverse_each do |post|
+          .col-2
+            - if post.image?
+              = image_tag post.image.thumb100.url
+            - else
+              .text-center
+                = image_tag 'noimage_100.png'
+          .col-4
+            %table.table
+              %thead
+                %tr
+                  %th{:colspan => "2"}
+                    = link_to post.title, post_path(post.id), class: "font-weight-bold"
+              %tbody
+                %tr
+                  %td 講義名
+                  %td= post.lecture
+                %tr
+                  %td ステータス
+                  %td= post.status
+            %br/
+    .col-md-1
+= render 'layouts/footer'

@@ -31,6 +31,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # devise
 gem 'devise'
 
+# haml
+gem 'haml-rails'
+
 # bootstrap
 gem 'bootstrap'
 gem 'jquery-rails'

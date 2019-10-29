@@ -1,0 +1,79 @@
+= render 'layouts/header'
+%br/
+%br/
+%br/
+.container
+  .row
+    .col-md-4
+    .col-md-4
+      %br/
+      - if user_signed_in?
+        - if @user.username == current_user.username
+          %h2.text-center.font-weight-light My Profile
+        - else
+          %h2.text-center.font-weight-light
+            = @user.username
+            's Profile
+      - elsif not(user_signed_in?)
+        %h2.text-center.font-weight-light
+          = @user.username
+          's Profile
+      %br/
+    .col-md-4
+.container
+  .row
+    .col-md-2
+    .col-md-2
+      %h4 基本情報
+      - if user_signed_in?
+        - if @user.id == current_user.id
+          = link_to "Edit", edit_user_registration_path(current_user.id)
+    .col-md-6
+      %p
+        ニックネーム: #{@user.username}
+      %p
+        総投稿数: #{@posts.length}
+      %p
+        登録日: #{@user.created_at.strftime('%Y年%m月%d日')}
+      %hr/
+    .col-md-2
+  %br/
+  %br/
+  .row
+    .col-md-2
+    .col-md-2
+      %h4.font-weight-light Users Posts
+    .col-md-6
+      /
+        <haml_silent>       if @posts_bosyu
+        </haml_silent><haml_block><haml_silent>         @posts_bosyu.each do |post|
+        </haml_silent><haml_block>          <haml_loud> link_to post.title, post_path(post.id) </haml_loud>
+        <hr>
+        </haml_block></haml_block><haml_silent>       else
+        </haml_silent><haml_block>        <h4>募集中の投稿がありません。</p>
+        </haml_block>
+      %table.table
+        %thead
+          %tr
+            %th Bosyu now
+        %tbody
+          - if @posts_bosyu.length > 0
+            - @posts_bosyu.each do |post|
+              %tr
+                %td= link_to post.title, post_path(post.id)
+          - else
+            %tr
+              %td 募集中の投稿がありません
+        %thead
+          %tr
+            %th Delivered Posts
+        %tbody
+          - if @posts_delivered.length > 0
+            - @posts_delivered.each do |post|
+              %tr
+                %td= link_to post.title, post_path(post.id)
+          - else
+            %tr
+              %td 譲った教材はありません
+    .col-md-2
+= render 'layouts/footer'

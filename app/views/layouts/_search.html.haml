@@ -1,0 +1,9 @@
+= form_tag search_posts_path, method: :get do
+  = label_tag :タイトル
+  = text_field_tag :title, params[:title]
+  = label_tag :講義名
+  = text_field_tag :lecture, params[:lecture]
+  /
+    <haml_loud> select_tag params[:status], options_for_select([[&quot;掲載中&quot;,&quot;掲載中&quot;],[&quot;受け渡し中&quot;,&quot;受け渡し中&quot;],[&quot;受け渡し完了&quot;,&quot;受け渡し完了&quot;]], selected: 0) </haml_loud>
+  %br/
+  = submit_tag "検索", class: "btn btn-block btn-outline-dark"

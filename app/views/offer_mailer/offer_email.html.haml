@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      = @provider.username
+      様、あなたの教材提供にオファーが来ました。
+    %p
+      あなたが募集していた#{@post.title}にオファーが来ました。
+      次のリンクからYuzuru-OSUへアクセスして確認してください。
+      %a{:href => "#{@url}#{@post.id}"}
+        「#{@post.title}」へアクセス
+    %h3
+      = @recipient.username
+      さんとの連絡を開始し、教材を譲ってください。
+    %p
+      = @recipient.username
+      さんのメールアドレスは、
+      %br/
+      = @recipient.email
+      %br/
+      です。
+    %p
+      いつ、どこで受け渡し可能であるかを確認し、受け渡しを行ってください。
+      %br/
+      教材のご提供に感謝いたします。
+    %p
+      send from, Yuzuru-OSU

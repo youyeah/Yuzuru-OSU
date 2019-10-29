@@ -1,0 +1,46 @@
+= render 'layouts/header'
+.jumbotron.jumbotron-fluid.text-bslack.rounded.bg-light
+  .container
+    %br/
+    .row
+      .col-2
+      .col-8
+        %h3.display-4.font-italic Search TextBook
+      .col-2
+    .panel.panel-default
+      .panel-body
+        = form_tag search_posts_path, method: :get do
+          .form-group.row
+            .col-sm-2
+            .col-sm-8
+              %p.col-form-label 教材の名前、講義名を入力してください。
+              %p.col-form-label キーワードに関連する募集中の投稿のみを探します！
+            .col-sm-2
+          .form-group.row
+            .col-sm-2
+            .col-sm-6
+              = text_field_tag :key_words, params[:key_words], placeholder: "書名 や 講義名", autofocus: true,class: "form-control"
+            .col-sm-2
+              = submit_tag '検索' , class: "btn btn-block btn-outline-dark"
+            .col-sm-2
+.container
+  .row
+    - @posts.each do |post|
+      .col-md-2
+        - if post.image?
+          = image_tag post.image.thumb100.url
+        - else
+          .text-center
+            = image_tag 'noimage_100.png'
+      .col-4
+        %table.table
+          %thead
+            %tr
+              %th{:colspan => "2"}
+                = link_to post.title, post_path(post.id), class: "font-weight-bold"
+          %tbody
+            %tr
+              %td 講義名
+              %td= post.lecture
+        %br/
+= render 'layouts/footer'

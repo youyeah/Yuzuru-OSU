@@ -1,0 +1,28 @@
+%h1 投稿編集
+= form_for @post do |f|
+  %p
+    = f.label :title
+    = f.text_field :title
+  %p
+    = f.label :lecture
+    = f.text_field :lecture
+  %p
+    = f.label :condition
+    = f.select :condition, [["新品同様", "新品同様"], ["書き込みがある", "書き込みがある"],  ["汚れが目立つ", "汚れが目立つ"], |
+      ["きたない", "きたない"]],  :prompt => "選択してください", class: "form-control"                       |
+  %p
+    = f.label :content
+    = f.text_area :content
+  - if @post.image?
+    %p 現在のイメージ
+    = image_tag @post.image.thumb100.url
+  %p
+    = f.label :image
+    = f.file_field :image
+  %p
+    = f.check_box :remove_image
+    = f.label :remove_image, "画像を削除する"
+  = f.submit "保存"
+- if @post.provider == current_user
+  %p= link_to '削除', post_path(@post.id), method: :delete
+= link_to "ホームへ戻る", posts_path

@@ -1,0 +1,50 @@
+.jumbotron.jumbotron-fluid.text-bslack.rounded.bg-light
+  .container
+    %br/
+    = render 'layouts/notification'
+    - if user_signed_in?
+      %h3.display-4.font-italic Post your TEXT
+      .panel.panel-default
+        .panel-body
+          = form_for @post do |f|
+            .form-group.row
+              = f.label :タイトル , class: "col-sm-2 col-form-label"
+              .col-sm-10
+                = f.text_field :title, placeholder: "書名を入力",autofocus: true,class: "form-control"
+            .form-group.row
+              = f.label :講義名 , class: "col-sm-2 col-form-label"
+              .col-sm-10
+                = f.text_field :lecture, placeholder: "講義名を入力", class: "form-control"
+            .form-group.row
+              = f.label :コンディション , class: "col-sm-2 col-form-label"
+              .col-sm-10
+                = f.select :condition,  [["新品同様", "新品同様"],  ["書き込みがある", "書き込みがある"], ["汚れが目立つ", "汚れが目立つ"],["きたない", "きたない"] ], |
+                  { include_blank: "- 状態を選択 -", selected: "- 状態を選択 -" }                                                      |
+            .form-group.row
+              = f.label :説明, class: "col-sm-2 col-form-label"
+              .col-sm-10
+                = f.text_area :content, placeholder: "多少の書き込みはあるけど、全然使えます！など、少しでも入力してください。", class: "form-control"
+            .form-group.row
+              = f.label :画像, class: "col-sm-2 col-form-label"
+              .col-sm-10
+                = image_tag @post.image.thumb100.url if @post.image?
+                = f.file_field :image, class: "btn btn-block"
+                = f.hidden_field :image_cache
+            .form-group.row
+              .col-sm-4
+              .col-sm-4
+                = f.submit '投稿' , class: "btn btn-block btn-outline-dark"
+              .col-sm-4
+    - else
+      .container.row
+        %h2.display-4.font-italic about Yuzuru
+        %p.lead.my-3
+          Yuzuru-OSUは、人から人へ教科書を「ゆずる」手助けをするサービスです。
+          %br/
+          大阪産業大学の学生を対象にしていて、あなたが探している教材や参考書がきっと見つかると思います。
+          %br/
+          ぜひ、ユーザー登録して、譲ったり譲られたり...色々体験してみてください。
+        .col-sm-4
+        .col-sm-4
+          = link_to 'ユーザー登録' , signup_path, class: "btn btn-block btn-outline-dark"
+        .col-sm-4
